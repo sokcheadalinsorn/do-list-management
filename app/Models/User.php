@@ -29,4 +29,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+     // Relationship one users has many tasks
+    public function tasks()
+    {
+        return $this->HasMany(Task::class);
+    }
 }
