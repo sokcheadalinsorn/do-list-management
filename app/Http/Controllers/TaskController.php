@@ -7,9 +7,17 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    public function index() 
+    public function index(Request $request)
+{
+    $tasks = Task::all();
+    $showForm = $request->show == 'form';
+
+    return view('tasks.index', compact('tasks', 'showForm'));
+}
+
+    public function show()
     {
         $tasks = Task::all();
-        return view('task.index', compact('tasks'));
+        return view('tasks.index', compact('tasks'));
     }
 }

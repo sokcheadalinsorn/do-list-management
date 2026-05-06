@@ -17,12 +17,12 @@ class Task extends Model
         'status',
         'due_date',
     ];
-}
 
-// Relationship many tasks has one users
-public function users()
-{
-    return $this->BelongTo(User::class);
+    // Relationship many tasks has one users
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
 
 
