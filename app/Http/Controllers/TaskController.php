@@ -2,22 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Task;
 use Illuminate\Http\Request;
+use App\Models\Task;
 
 class TaskController extends Controller
 {
-    public function index(Request $request)
-{
-    $tasks = Task::all();
-    $showForm = $request->show == 'form';
-
-    return view('tasks.index', compact('tasks', 'showForm'));
-}
-
-    public function show()
+    public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::latest()->get();
+
         return view('tasks.index', compact('tasks'));
     }
+
+    public function create()
+    {
+        return view('tasks.create');
+    }
+
+    // ✅ Correct — redirects after saving
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'title'       => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'status'      => 'nullable|string',
+    ]);
+
+    $validated['status'] = $validated['status'] ?? 'Pending';
+
+    Task::create($validated);
+
+    return redirect()->route('tasks.index')
+                     ->with('success', 'Task created successfully!');
+}
+
 }
