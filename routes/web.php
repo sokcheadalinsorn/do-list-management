@@ -7,10 +7,18 @@ use App\Http\Controllers\CompletedController;
 use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
-// Auth routes
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.post');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
+Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
+Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
+
+Route::get('/login', [AuthController::class, 'showLogin']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/login', [ AuthController::class, 'store'])->name('login.store');
 
 // No middleware - open access for now
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
