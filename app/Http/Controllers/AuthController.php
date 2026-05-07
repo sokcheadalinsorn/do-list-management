@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use GuzzleHttp\RedirectMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     public function showLogin()
     {
-        return view('login.index');
+        return view('auth.index');
     }
 
     public function login(Request $request)
@@ -37,23 +37,26 @@ class AuthController extends Controller
         return back()->with('error', 'Invalid credentials');
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect('/login');
     }
 
     public function store(Request $request)
     {
-        $email = $request->input('email');
-        $password = $request->input('password');
-
-        // save data into database
-        User::create([
-            'email' => $email,
-            'password' => $password,
+        $request->validate([
+            'email'    => 'required|email|unique:users',
+            'password' => 'required|min:6',
         ]);
 
-        return redirect()->route('dashboard');
+        User::create([
+            'email'    => $request->email,
+            'password' => Hash::make($request->password), // ← always hash passwords
+        ]);
+
+        return redirect()->route('login');
     }
-}  
+}
