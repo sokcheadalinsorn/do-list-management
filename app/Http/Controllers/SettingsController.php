@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Task;
+use App\Models\Settings;
 use Illuminate\Http\Request;
 
-class TaskController extends Controller
+class SettingsController extends Controller
 {
     public function index() 
     {
-        return view('tasks.index');
+        return view('setting.index');
     }
     }
