@@ -1,27 +1,19 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\CompletedController;
+use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
-
-
-Route::get('/tasks', [TaskController::class, 'index']);
-Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
-Route::get('/tasks', [TaskController::class, 'show']);
-
-Route::get('/login', [AuthController::class, 'showLogin']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout']);
-Route::post('/login', [ AuthController::class, 'store'])->name('login.store');
-
-
-
-
+// Auth routes
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/users', function() { return 'Users list'; })->name('users.index');
-    Route::get('/users/create', function() { return 'Add user form'; })->name('users.create');
-    Route::get('/reports', function() { return 'Reports page'; })->name('reports.index');
-});
+
+// No middleware - open access for now
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/tasks', [TaskController::class, 'index'])->name('tasks');
+Route::get('/completed', [CompletedController::class, 'index'])->name('completed');
+Route::get('/settings', [SettingsController::class, 'index'])->name('settings');

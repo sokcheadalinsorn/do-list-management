@@ -1,10 +1,18 @@
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-
 @extends('layouts.app')
 
-@section('title', 'Dashboard')
-
 @section('content')
-    <h1>Welcome to your Dashboard</h1>
-    <p>Hello <strong>{{ Auth::user()->name }}</strong>, You are logged in!</p>
+
+<div class="bg-gray-50 p-6 font-sans">
+
+    {{-- Header --}}
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">Dashboard Overview</h1>
+        <p class="text-gray-500 mt-1">Welcome back, {{ auth()->user()->name ?? 'Dara' }}. Here's what's happening today.</p>
+    </div>
+
+  
+
+
+</div>
+
 @endsection
