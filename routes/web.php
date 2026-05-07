@@ -17,3 +17,4 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::get('/tasks', [TaskController::class, 'index'])->name('tasks');
 Route::get('/completed', [CompletedController::class, 'index'])->name('completed');
 Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
+
