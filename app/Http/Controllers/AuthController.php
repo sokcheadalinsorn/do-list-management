@@ -12,6 +12,7 @@ class AuthController extends Controller
     public function showLogin()
     {
         return view('login.index');
+        
     }
 
     public function login(Request $request)
@@ -44,12 +45,14 @@ class AuthController extends Controller
     }
 
     public function store(Request $request)
-    {
+    {   
+        $full_name = $request->input('full_name');
         $email = $request->input('email');
         $password = $request->input('password');
 
         // save data into database
         User::create([
+            'full_name' => $full_name,
             'email' => $email,
             'password' => $password,
         ]);
