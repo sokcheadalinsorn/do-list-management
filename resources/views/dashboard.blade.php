@@ -95,11 +95,12 @@
         </thead>
         <tbody>
             @foreach($recentTasks as $task)
-                <x-task-row
-                    :name="$task->title"
-                    :priority="$task->priority"
-                    :status="$task->status"
-                    :dueDate="\Carbon\Carbon::parse($task->due_date)->format('M d, Y')"
+                        <x-task-row
+            :taskId="$task->id"
+            :name="$task->title"
+            :priority="$task->priority"
+            :status="$task->status"
+            :dueDate="\Carbon\Carbon::parse($task->due_date)->format('M d, Y')"
                 />
             @endforeach
         </tbody>
@@ -115,6 +116,8 @@
     </div>
 
 </div>
+
+
 
   
 
