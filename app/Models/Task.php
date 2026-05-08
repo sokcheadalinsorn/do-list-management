@@ -6,23 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    protected $table = 'tasks';
-
-    protected $primaryKey = 'id';
-
     protected $fillable = [
         'title',
         'description',
-        'priority',
         'status',
+        'priority',
         'due_date',
     ];
+    
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
-
-// Relationship many tasks has one users
-public function users()
-{
-    return $this->BelongTo(User::class);
-}
-
-
