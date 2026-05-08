@@ -21,6 +21,7 @@ Route::post('/logout', [AuthController::class, 'logout']);
 Route::post('/login', [ AuthController::class, 'store'])->name('login.store');
 
 // No middleware - open access for now
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/tasks', [TaskController::class, 'index'])->name('tasks');
 Route::get('/completed', [CompletedController::class, 'index'])->name('completed');
