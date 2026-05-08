@@ -37,7 +37,7 @@ class TaskController extends Controller
         return view('tasks.create');
     }
 
-    // ✅ Correct — redirects after saving
+
 public function store(Request $request)
 {
     $validated = $request->validate([
