@@ -16,12 +16,7 @@ class TaskController extends Controller
     public function update(Request $request, $id)
     {
         $task = Task::findOrFail($id);
-        $task->update([
-            'title'       => $request->title,
-            'description' => $request->description,
-            'status'      => $request->status,
-            'priority'    => $request->priority,
-            'due_date'    => $request->due_date,
+        $task->update([ 'title' => $request->title, 'description' => $request->description, 'status' => $request->status, 'priority' => $request->priority, 'due_date' => $request->due_date,
         ]);
         return redirect('/dashboard');
     }
@@ -37,7 +32,6 @@ class TaskController extends Controller
         return view('tasks.create');
     }
 
-    // ✅ Correct — redirects after saving
 public function store(Request $request)
 {
     $validated = $request->validate([
