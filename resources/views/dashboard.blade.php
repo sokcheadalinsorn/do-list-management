@@ -10,9 +10,6 @@
         <p class="text-gray-500 mt-1">Welcome back, {{ auth()->user()->name ?? 'Dara' }}. Here's what's happening today.</p>
     </div>
 
-  
-
-
 </div>
 
 @endsection
