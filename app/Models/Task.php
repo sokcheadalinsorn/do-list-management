@@ -12,10 +12,17 @@ class Task extends Model
         'status',
         'priority',
         'due_date',
+        'title',
+        'description',
+        'status'
     ];
     
+
+
     public function users()
     {
         return $this->belongsTo(User::class);
     }
+
 }
+

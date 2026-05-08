@@ -1,18 +1,43 @@
-@extends('layouts.app')
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+<div>
+    <div class="flex justify-between align-items-center ml-6 mr-6 mt-6">
+        <h1 class="text-3xl font-bold text-gray-800">My Tasks</h1>
+        <a href="{{ route('tasks.create') }}">
+        <button>Add Task</button>
+    </a>
 
-@section('content')
+    
 
-<div class="bg-gray-50 p-6 font-sans">
 
-    {{-- Header --}}
-    <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">Dashboard Overview</h1>
-        <p class="text-gray-500 mt-1">Welcome back, Dara. Here's what's happening today.</p>
     </div>
+    <div>
+        <div class="ml-6 mr-6 mt-4">
+            <form class="mb-4 flex items-center gap-2">
 
-  
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="Search task..."
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg 
+               focus:outline-none focus:ring-2 focus:ring-gray-200 focus:border-gray-200 shadow-lg transition duration-300 ease-in-out mr-10">
+
+                <select name="status" id="status" class="w-[420px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 focus:border-gray-500 shadow-lg transition duration-300 ease-in-out">
+                    <option value="">All Status</option>
+                    <option value="completed">Completed</option>
+                    <option value="pending">Pending</option>
 
 
+                </select>
+
+            </form>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach ($tasks as $task)
+                    <div class="bg-white rounded-lg shadow-md p-4">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-2">{{ $task->title }}</h2>
+                        <p class="text-gray-600 mb-4">{{ $task->description }}</p>
+                        <p class="text-sm text-gray-500">Due: {{ $task->due_date }}</p>
+                    </div>
+                @endforeach
+        </div>
+    </div>
 </div>
-
-@endsection
