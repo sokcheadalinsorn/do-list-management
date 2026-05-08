@@ -11,53 +11,53 @@
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
 
-    <x-stat-card
-        label="Total Tasks"
-        :value="$totalTasks"
-        :change="'+' . $newTasksThisWeek . ' from last week'"
-        iconBg="bg-blue-50">
-        <x-slot:icon>
-            <svg class="w-5 h-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
-            </svg>
-        </x-slot:icon>
-    </x-stat-card>
+   <x-stat-card
+    label="Total Tasks"
+    :value="$totalTasks"
+    :change="'+' . $newTasksThisWeek . ' from last week'"
+    iconBg="bg-blue-50">
+    <x-slot:icon>
+        <svg class="w-5 h-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
+        </svg>
+    </x-slot:icon>
+</x-stat-card>
 
-    <x-stat-card>
-        label="Completed"
-        :value="$completedTasks"
-        :change="$completionRate . '% completion rate'"
-        iconBg="bg-green-50">
-        <x-slot:icon>
-            <svg class="w-5 h-5 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-            </svg>
-        </x-slot:icon>
-    </x-stat-card>
+<x-stat-card
+    label="Completed"
+    :value="$completedTasks"
+    :change="$completionRate . '% completion rate'"
+    iconBg="bg-green-50">
+    <x-slot:icon>
+        <svg class="w-5 h-5 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+    </x-slot:icon>
+</x-stat-card>
 
-    <x-stat-card
-        label="Pending"
-        :value="$pendingTasks"
-        change="Needs attention"
-        iconBg="bg-gray-50">
-        <x-slot:icon>
-            <svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-            </svg>
-        </x-slot:icon>
-    </x-stat-card>
+<x-stat-card
+    label="Pending"
+    :value="$pendingTasks"
+    change="Needs attention"
+    iconBg="bg-gray-50">
+    <x-slot:icon>
+        <svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+    </x-slot:icon>
+</x-stat-card>
 
-    <x-stat-card
-        label="In Progress"
-        :value="$inProgressTasks"
-        change="Currently active"
-        iconBg="bg-blue-50">
-        <x-slot:icon>
-            <svg class="w-5 h-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
-            </svg>
-        </x-slot:icon>
-    </x-stat-card>
+<x-stat-card
+    label="In Progress"
+    :value="$inProgressTasks"
+    change="Currently active"
+    iconBg="bg-blue-50">
+    <x-slot:icon>
+        <svg class="w-5 h-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
+        </svg>
+    </x-slot:icon>
+</x-stat-card>
 
 </div>
 
@@ -116,7 +116,6 @@
     </div>
 
 </div>
-
 
 </div>
 
