@@ -9,9 +9,7 @@ class TaskController extends Controller
 {
     public function edit($id)
     {
-        $task = Task::findOrFail($id);
-        dd($id);
-        
+        $task = Task::findOrFail($id);        
         return view('tasks.edit', compact('task'));
     }
 
@@ -20,6 +18,7 @@ class TaskController extends Controller
         $task = Task::findOrFail($id);
         $task->update([ 'title' => $request->title, 'description' => $request->description, 'status' => $request->status, 'priority' => $request->priority, 'due_date' => $request->due_date,
         ]);
+        dd($task);
         return redirect('/dashboard');
     }
     public function index()
