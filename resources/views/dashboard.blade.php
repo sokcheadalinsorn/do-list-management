@@ -11,7 +11,7 @@
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
 
-   <x-stat-card
+  <x-stat-card
     label="Total Tasks"
     :value="$totalTasks"
     :change="'+' . $newTasksThisWeek . ' from last week'"
@@ -58,7 +58,6 @@
         </svg>
     </x-slot:icon>
 </x-stat-card>
-
 </div>
 
 <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-8">
