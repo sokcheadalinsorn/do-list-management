@@ -23,7 +23,7 @@
         </x-slot:icon>
     </x-stat-card>
 
-    <x-stat-card
+    <x-stat-card>
         label="Completed"
         :value="$completedTasks"
         :change="$completionRate . '% completion rate'"
@@ -117,11 +117,14 @@
 
 </div>
 
+<<<<<<< HEAD
+=======
 
 
   
 
 
+>>>>>>> d8419d186db20052513ca810942d85b4d81a007f
 </div>
 
 @endsection

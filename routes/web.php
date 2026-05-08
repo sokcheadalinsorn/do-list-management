@@ -9,22 +9,18 @@ use Hamcrest\Core\Set;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
 
-Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
-Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
-Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
-
-Route::get('/login', [AuthController::class, 'showLogin']);
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout']);
-Route::post('/login', [ AuthController::class, 'store'])->name('login.store');
+Route::post('/logout', [AuthController::class, 'register']);
 
 // No middleware - open access for now
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/tasks', [TaskController::class, 'index'])->name('tasks');
+Route::get('/tasks', [TaskController::class, 'index']);
 Route::get('/completed', [CompletedController::class, 'index'])->name('completed');
 
 Route::get('/setting', [SettingController::class, 'index'])->name('setting');
