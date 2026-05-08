@@ -9,31 +9,36 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::latest()->get();
-
+        $tasks = Task::all();
         return view('tasks.index', compact('tasks'));
     }
 
-    public function create()
+    public function store(Request $request) 
     {
+        $task_name = $request->input('task_name');
+        $priority = $request->input('priority');
+        $status = $request->input('status');
+        $due_date = $request->input('due_date');
+
+        Task::create([
+            'task_name'   => $request->title, 
+            'priority' => $priority,
+            'status' => $status,
+            'due_date' => $due_date,   
+        ]);
+
+        return redirect()->route('tasks')->with('success', 'Task created successfully!');
+
+    }
+
+    public function create(){
+        
         return view('tasks.create');
     }
 
-    // ✅ Correct — redirects after saving
-public function store(Request $request)
-{
-    $validated = $request->validate([
-        'title'       => 'required|string|max:255',
-        'description' => 'nullable|string',
-        'status'      => 'nullable|string',
-    ]);
-
-    $validated['status'] = $validated['status'] ?? 'Pending';
-
-    Task::create($validated);
-
-    return redirect()->route('tasks.index')
-                     ->with('success', 'Task created successfully!');
-}
-
+    public function edit($id)
+    {
+        $task = Task::findOrFail($id);
+        return view('tasks.edit', compact('task'));
+    }
 }

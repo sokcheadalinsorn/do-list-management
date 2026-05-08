@@ -11,14 +11,10 @@ class Task extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'title',
-        'description',
-        'priority',
+        'task_name',
         'status',
         'due_date',
-        'title',
-        'description',
-        'status'
+        'priority',   
     ];
     
 

@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Task</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-slate-100 min-h-screen flex items-center justify-center p-4">
+@extends('layouts.app')
 
+@section('content')
+
+<div class="min-h-screen bg-slate-100 flex items-center justify-center p-4">
     <div class="bg-white w-full max-w-lg rounded-2xl shadow-lg p-8">
 
         {{-- Back Link --}}
-        <a href="{{ route('tasks.index') }}" class="flex items-center text-sm text-slate-500 hover:text-indigo-500 transition mb-6">
+        <a href="{{ route('tasks') }}" class="flex items-center text-sm text-slate-500 hover:text-indigo-500 transition mb-6">
             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
             </svg>
@@ -27,9 +22,7 @@
 
             {{-- Title --}}
             <div>
-                <label for="title" class="block text-sm font-semibold text-slate-700 mb-1">
-                    Task Title
-                </label>
+                <label for="title" class="block text-sm font-semibold text-slate-700 mb-1">Task Title</label>
                 <input
                     type="text"
                     id="title"
@@ -45,17 +38,39 @@
 
             {{-- Description --}}
             <div>
-                <label for="description" class="block text-sm font-semibold text-slate-700 mb-1">
-                    Description
-                </label>
+                <label for="description" class="block text-sm font-semibold text-slate-700 mb-1">Description</label>
                 <textarea
                     id="description"
                     name="description"
                     placeholder="Describe the task in detail..."
-                    rows="5"
+                    rows="4"
                     class="w-full px-4 py-2.5 border border-slate-200 rounded-lg bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition resize-none"
                 >{{ old('description') }}</textarea>
                 @error('description')
+                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            {{-- Status --}}
+            <div>
+                <label for="status" class="block text-sm font-semibold text-slate-700 mb-1">Status</label>
+                <div class="relative">
+                    <select
+                        id="status"
+                        name="status"
+                        class="w-full px-4 py-2.5 border border-slate-200 rounded-lg bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition appearance-none"
+                    >
+                        <option value="Pending"     {{ old('status') == 'Pending'     ? 'selected' : '' }}>Pending</option>
+                        <option value="In Progress" {{ old('status') == 'In Progress' ? 'selected' : '' }}>In Progress</option>
+                        <option value="Completed"   {{ old('status') == 'Completed'   ? 'selected' : '' }}>Completed</option>
+                    </select>
+                    <span class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </span>
+                </div>
+                @error('status')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
             </div>
@@ -65,9 +80,7 @@
 
                 {{-- Due Date --}}
                 <div>
-                    <label for="due_date" class="block text-sm font-semibold text-slate-700 mb-1">
-                        Due date
-                    </label>
+                    <label for="due_date" class="block text-sm font-semibold text-slate-700 mb-1">Due date</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
                             <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -89,9 +102,7 @@
 
                 {{-- Priority --}}
                 <div>
-                    <label for="priority" class="block text-sm font-semibold text-slate-700 mb-1">
-                        Priority
-                    </label>
+                    <label for="priority" class="block text-sm font-semibold text-slate-700 mb-1">Priority</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
                             <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -117,27 +128,22 @@
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
-
             </div>
 
             {{-- Buttons --}}
             <div class="flex items-center justify-end gap-3 pt-2">
-                
-                   <button>
-                    <a href="{{ route('tasks.index') }}" class="text-sm font-semibold text-slate-500 border border-slate-200 py-3 px-7 bg-gray-100 rounded-lg hover:text-indigo-500 transition">
-                        Cancel
-                    </a>
-                   </button>
-                <button
-                    type="submit"
-                    class="px-5 py-2.5 text-sm font-semibold text-white bg-indigo-500 hover:bg-indigo-600 rounded-lg transition"
-                >
+                <a href=""
+                   class="px-5 py-2.5 text-sm font-semibold text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50 transition">
+                    Cancel
+                </a>
+                <button type="submit"
+                    class="px-5 py-2.5 text-sm font-semibold text-white bg-indigo-500 hover:bg-indigo-600 rounded-lg transition">
                     Save Tasks
                 </button>
             </div>
 
         </form>
     </div>
+</div>
 
-</body>
-</html>
+@endsection
