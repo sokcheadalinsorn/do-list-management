@@ -7,6 +7,24 @@ use App\Models\Task;
 
 class TaskController extends Controller
 {
+    public function edit($id)
+    {
+        $task = Task::findOrFail($id);
+        return view('tasks.edit', compact('task'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $task = Task::findOrFail($id);
+        $task->update([
+            'title'       => $request->title,
+            'description' => $request->description,
+            'status'      => $request->status,
+            'priority'    => $request->priority,
+            'due_date'    => $request->due_date,
+        ]);
+        return redirect('/dashboard');
+    }
     public function index()
     {
         $tasks = Task::latest()->get();
