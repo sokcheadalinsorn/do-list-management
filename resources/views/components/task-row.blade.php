@@ -1,28 +1,39 @@
+@props(['taskId', 'name', 'priority', 'status', 'dueDate'])
 <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
+
+    {{-- Task Name --}}
     <td class="py-4 px-4 text-sm text-gray-800">{{ $name }}</td>
+
+    {{-- Priority --}}
     <td class="py-4 px-4">
-        @if($priority === 'High')
+        @if($priority === 'high')
             <span class="px-3 py-1 rounded-md text-xs font-medium bg-red-100 text-red-500">High</span>
-        @elseif($priority === 'Medium')
+        @elseif($priority === 'medium')
             <span class="px-3 py-1 rounded-md text-xs font-medium bg-yellow-100 text-yellow-600">Medium</span>
-        @elseif($priority === 'Low')
+        @elseif($priority === 'low')
             <span class="px-3 py-1 rounded-md text-xs font-medium bg-green-400 text-white">Low</span>
         @endif
     </td>
+
+    {{-- Status --}}
     <td class="py-4 px-4">
-        @if($status === 'In Progress')
+        @if($status === 'in_progress')
             <span class="px-3 py-1 rounded-md text-xs font-medium bg-blue-100 text-blue-500">In Progress</span>
-        @elseif($status === 'Pending')
-            <span class="text-xs font-medium text-gray-500">Pending</span>
-        @elseif($status === 'Completed')
-            <span class="text-xs font-medium text-green-500">Completed</span>
+        @elseif($status === 'pending')
+            <span class="px-3 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-500">Pending</span>
+        @elseif($status === 'completed')
+            <span class="px-3 py-1 rounded-md text-xs font-medium bg-green-100 text-green-500">Completed</span>
         @endif
     </td>
+
+    {{-- Due Date --}}
     <td class="py-4 px-4 text-sm text-gray-600">{{ $dueDate }}</td>
+
+    {{-- Actions --}}
     <td class="py-4 px-4">
         <div class="flex items-center justify-end gap-3">
             {{-- Edit --}}
-            <a href="#" class="text-gray-400 hover:text-blue-500 transition">
+            <a href="/tasks/edit/{{ $taskId }}" class="text-gray-400 hover:text-blue-500 transition">
                 <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125" />
                 </svg>
@@ -41,4 +52,5 @@
             </a>
         </div>
     </td>
+
 </tr>
