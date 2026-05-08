@@ -10,6 +10,8 @@ class TaskController extends Controller
     public function edit($id)
     {
         $task = Task::findOrFail($id);
+        dd($id);
+        
         return view('tasks.edit', compact('task'));
     }
 
