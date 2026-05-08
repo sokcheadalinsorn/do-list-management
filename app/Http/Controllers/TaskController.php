@@ -32,6 +32,7 @@ class TaskController extends Controller
         return view('tasks.create');
     }
 
+
 public function store(Request $request)
 {
     $validated = $request->validate([

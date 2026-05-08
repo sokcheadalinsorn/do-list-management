@@ -19,18 +19,6 @@ class AuthController extends Controller
     {
         return view('register.index');
     }
-
-    public function login(Request $request)
-    {
-       $email = $request->input('email');
-       $password = $request->input('password');
-
-       User::create([
-        'email' => $email,
-        'password' => $password,
-       ]);
-    }
-
     
     public function register(Request $request)
     {
@@ -45,5 +33,14 @@ class AuthController extends Controller
        ]);
 
        return redirect()->route('dashboard');
+    }
+
+    
+    public function login(Request $request) {
+        $user = User::where('email', $request->input('email'));
+
+        if( User::where('password', $request->input('password'))) {
+            return redirect()->route('dashboard');
+        }
     }
 }
