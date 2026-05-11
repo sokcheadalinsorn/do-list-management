@@ -19,7 +19,7 @@
                     <button
                         class="flex-1 py-5 px-18  text-center justify-items-center items-center  text-xl font-bold rounded-xl ">
                         Login
-                    </button>
+                    </button>   
                 </a>
 
                 <a href="{{route('register')}}">
