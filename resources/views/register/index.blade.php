@@ -15,15 +15,15 @@
 
             <!-- Tab Headers -->
             <div class="flex p-5">
-                <a href="{{route('login')}}">
-                    <button
+                <a href="{{route('login')}}" >
+                    <button onclick="" type="button"
                         class="flex-1 py-5 px-18  text-center justify-items-center items-center  text-xl font-bold rounded-xl ">
                         Login
                     </button>   
                 </a>
 
                 <a href="{{route('register')}}">
-                    <button
+                    <button onclick="" type="button"
                         class="flex-1 py-5 px-18 text-center text-xl font-bold rounded-xl transition-all duration-300 bg-blue-600 text-white shadow-lg">
                         Register
                     </button>
@@ -32,7 +32,7 @@
 
             <!-- Form Content -->
             <div class="p-8">
-                <form id="authForm" class="space-y-6" method="post" action="{{route('register')}}>
+                <form id="authForm" class="space-y-6" method="post" action="{{route('register')}}">
                     @csrf
                     <!-- Full Name (Only for Register) -->
                     <div>
@@ -60,6 +60,15 @@
                         class="w-full bg-black text-white py-4 rounded-md text-2xl font-bold hover:bg-gray-800 transition-colors mt-4">
                         Register
                     </button>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                 </form>
             </div>
 

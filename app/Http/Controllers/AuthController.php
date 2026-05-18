@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\RedirectController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
+use PhpParser\Builder\Function_;
+use PhpParser\Node\Expr\FuncCall;
 
 class AuthController extends Controller
 {
@@ -22,13 +25,17 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-       $email = $request->input('email');
-       $password = $request->input('password');
 
-       User::create([
-        'email' => $email,
-        'password' => $password,
-       ]);
+        $user = User::where('email', $request->input('email'))->first();
+        
+        $password = User::where('password', $request->input('password'))->first();
+
+        if ($user && $password) {
+            return redirect()->route('dashboard');
+        }
+        else {
+            return redirect()->back()->withErrors(['msg' => 'The password and email not mathch']);
+        }
     }
 
     
@@ -46,4 +53,7 @@ class AuthController extends Controller
 
        return redirect()->route('dashboard');
     }
+
+    
+
 }
