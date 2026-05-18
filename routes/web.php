@@ -13,8 +13,10 @@ Route::get('/', function () {
 });
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::get('/register', [AuthController::class, 'store'])->name('regiter.store');
+
 // No middleware - open access for now
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
