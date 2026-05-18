@@ -6,7 +6,7 @@
     <div class="bg-white w-full max-w-lg rounded-2xl shadow-lg p-8">
 
         {{-- Back Link --}}
-        <a href="{{ route('tasks') }}" class="flex items-center text-sm text-slate-500 hover:text-indigo-500 transition mb-6">
+        <a href="{{ route('tasks.create') }}" class="flex items-center text-sm text-slate-500 hover:text-indigo-500 transition mb-6">
             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
             </svg>
@@ -132,14 +132,16 @@
 
             {{-- Buttons --}}
             <div class="flex items-center justify-end gap-3 pt-2">
-                <a href=""
+                <a href="{{ route('tasks.create') }}"
                    class="px-5 py-2.5 text-sm font-semibold text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50 transition">
                     Cancel
                 </a>
+                <a href="{{ route('tasks.create') }}">
                 <button type="submit"
                     class="px-5 py-2.5 text-sm font-semibold text-white bg-indigo-500 hover:bg-indigo-600 rounded-lg transition">
                     Save Tasks
                 </button>
+                </a>
             </div>
 
         </form>

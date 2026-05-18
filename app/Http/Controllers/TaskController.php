@@ -7,13 +7,21 @@ use App\Models\Task;
 
 class TaskController extends Controller
 {
-    public function index()
-    {
-        $tasks = Task::all();
-        return view('tasks.index', compact('tasks'));
+    public function index(Request $request)
+{
+    $query = Task::query();
+
+    if ($request->status) {
+        $query->where('status', $request->status);
     }
 
-    public function store(Request $request) 
+    $tasks = $query->paginate(7);
+
+    return view('tasks.index', compact('tasks'));
+}
+    
+
+    public function store(Request $request)
     {
         $task_name = $request->input('task_name');
         $priority = $request->input('priority');
@@ -21,24 +29,52 @@ class TaskController extends Controller
         $due_date = $request->input('due_date');
 
         Task::create([
-            'task_name'   => $request->title, 
+            'task_name'   => $request->title,
             'priority' => $priority,
             'status' => $status,
-            'due_date' => $due_date,   
+            'due_date' => $due_date,
         ]);
 
         return redirect()->route('tasks')->with('success', 'Task created successfully!');
-
     }
 
-    public function create(){
-        
+    public function create()
+    {
+
         return view('tasks.create');
     }
 
     public function edit($id)
     {
         $task = Task::findOrFail($id);
+
         return view('tasks.edit', compact('task'));
+    }
+    public function update(Request $request, $id)
+    {
+        $task = Task::findOrFail($id);
+
+        $task->update([
+            'task_name' => $request->task_name,
+            'priority' => $request->priority,
+            'status' => $request->status,
+            'due_date' => $request->due_date,
+        ]);
+
+        $task->save();
+
+        return redirect()
+            ->route('tasks')
+            ->with('success', 'Task updated successfully!');
+    }
+
+
+
+    public function destroy($id)
+    {
+        $task = Task::findOrFail($id);
+        $task->delete();
+
+        return redirect()->route('tasks')->with('success', 'Task deleted successfully!');
     }
 }
