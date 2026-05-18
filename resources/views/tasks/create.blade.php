@@ -6,7 +6,7 @@
     <div class="bg-white w-full max-w-lg rounded-2xl shadow-lg p-8">
 
         {{-- Back Link --}}
-        <a href="{{ route('tasks.create') }}" class="flex items-center text-sm text-slate-500 hover:text-indigo-500 transition mb-6">
+        <a href="{{ route('tasks') }}" class="flex items-center text-sm text-slate-500 hover:text-indigo-500 transition mb-6">
             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
             </svg>
@@ -17,134 +17,111 @@
         <h2 class="text-2xl font-bold text-slate-800">Create New Task</h2>
         <p class="text-sm text-slate-400 mt-1 mb-6">Fill in the details below to add a task to your list</p>
 
-        <form action="{{ route('tasks.store') }}" method="POST" class="space-y-5">
-            @csrf
+        <form action="{{ route('tasks.store') }}" method="POST" class="space-y-6">
+    @csrf
 
-            {{-- Title --}}
-            <div>
-                <label for="title" class="block text-sm font-semibold text-slate-700 mb-1">Task Title</label>
-                <input
-                    type="text"
-                    id="title"
-                    name="title"
-                    value="{{ old('title') }}"
-                    placeholder="e.g Design New feature."
-                    class="w-full px-4 py-2.5 border border-slate-200 rounded-lg bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition"
-                >
-                @error('title')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
+    {{-- Task Title --}}
+    <div>
+        <label for="title" class="block text-sm font-semibold text-slate-700 mb-2">
+            Task Title
+        </label>
 
-            {{-- Description --}}
-            <div>
-                <label for="description" class="block text-sm font-semibold text-slate-700 mb-1">Description</label>
-                <textarea
-                    id="description"
-                    name="description"
-                    placeholder="Describe the task in detail..."
-                    rows="4"
-                    class="w-full px-4 py-2.5 border border-slate-200 rounded-lg bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition resize-none"
-                >{{ old('description') }}</textarea>
-                @error('description')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
+        <input
+            type="text"
+            id="title"
+            name="title"
+            value="{{ old('title') }}"
+            required
+            placeholder="e.g Design New Feature."
+            class="w-full px-4 py-3 border border-slate-200 rounded-2xl bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition">
+    </div>
 
-            {{-- Status --}}
-            <div>
-                <label for="status" class="block text-sm font-semibold text-slate-700 mb-1">Status</label>
-                <div class="relative">
-                    <select
-                        id="status"
-                        name="status"
-                        class="w-full px-4 py-2.5 border border-slate-200 rounded-lg bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition appearance-none"
-                    >
-                        <option value="Pending"     {{ old('status') == 'Pending'     ? 'selected' : '' }}>Pending</option>
-                        <option value="In Progress" {{ old('status') == 'In Progress' ? 'selected' : '' }}>In Progress</option>
-                        <option value="Completed"   {{ old('status') == 'Completed'   ? 'selected' : '' }}>Completed</option>
-                    </select>
-                    <span class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </span>
-                </div>
-                @error('status')
-                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                @enderror
-            </div>
+    {{-- Description --}}
+    <div>
+        <label for="description" class="block text-sm font-semibold text-slate-700 mb-2">
+            Description
+        </label>
 
-            {{-- Due Date & Priority --}}
-            <div class="grid grid-cols-2 gap-4">
+        <textarea
+            id="description"
+            name="description"
+            rows="5"
+            required
+            placeholder="Describe the task in detail..."
+            class="w-full px-4 py-3 border border-slate-200 rounded-2xl bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none transition">{{ old('description') }}</textarea>
+    </div>
 
-                {{-- Due Date --}}
-                <div>
-                    <label for="due_date" class="block text-sm font-semibold text-slate-700 mb-1">Due date</label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                            </svg>
-                        </span>
-                        <input
-                            type="date"
-                            id="due_date"
-                            name="due_date"
-                            value="{{ old('due_date') }}"
-                            class="w-full pl-9 pr-4 py-2.5 border border-slate-200 rounded-lg bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition"
-                        >
-                    </div>
-                    @error('due_date')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+    {{-- Status --}}
+    <div>
+        <label for="status" class="block text-sm font-semibold text-slate-700 mb-2">
+            Status
+        </label>
 
-                {{-- Priority --}}
-                <div>
-                    <label for="priority" class="block text-sm font-semibold text-slate-700 mb-1">Priority</label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 4h13M3 8h9M3 12h5"/>
-                            </svg>
-                        </span>
-                        <select
-                            id="priority"
-                            name="priority"
-                            class="w-full pl-9 pr-4 py-2.5 border border-slate-200 rounded-lg bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition appearance-none"
-                        >
-                            <option value="High"   {{ old('priority') == 'High'   ? 'selected' : '' }}>High</option>
-                            <option value="Medium" {{ old('priority') == 'Medium' ? 'selected' : '' }}>Medium</option>
-                            <option value="Low"    {{ old('priority') == 'Low'    ? 'selected' : '' }}>Low</option>
-                        </select>
-                        <span class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
-                            </svg>
-                        </span>
-                    </div>
-                    @error('priority')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-            </div>
+        <select
+            id="status"
+            name="status"
+            required
+            class="w-full px-4 py-3 border border-slate-200 rounded-2xl bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition">
 
-            {{-- Buttons --}}
-            <div class="flex items-center justify-end gap-3 pt-2">
-                <a href="{{ route('tasks.create') }}"
-                   class="px-5 py-2.5 text-sm font-semibold text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50 transition">
-                    Cancel
-                </a>
-                <a href="{{ route('tasks.create') }}">
-                <button type="submit"
-                    class="px-5 py-2.5 text-sm font-semibold text-white bg-indigo-500 hover:bg-indigo-600 rounded-lg transition">
-                    Save Tasks
-                </button>
-                </a>
-            </div>
+            <option value="Pending">Pending</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+        </select>
+    </div>
 
-        </form>
+    {{-- Due Date & Priority --}}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+        {{-- Due Date --}}
+        <div>
+            <label for="due_date" class="block text-sm font-semibold text-slate-700 mb-2">
+                Due date
+            </label>
+
+            <input
+                type="date"
+                id="due_date"
+                name="due_date"
+                value="{{ old('due_date') }}"
+                required
+                class="w-full px-4 py-3 border border-slate-200 rounded-2xl bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition">
+        </div>
+
+        {{-- Priority --}}
+        <div>
+            <label for="priority" class="block text-sm font-semibold text-slate-700 mb-2">
+                Priority
+            </label>
+
+            <select
+                id="priority"
+                name="priority"
+                required
+                class="w-full px-4 py-3 border border-slate-200 rounded-2xl bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition">
+
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+            </select>
+        </div>
+    </div>
+
+    {{-- Buttons --}}
+    <div class="flex items-center justify-end gap-4 pt-4">
+
+        <a href="{{ route('tasks') }}"
+            class="px-8 py-3 border border-slate-200 rounded-2xl text-slate-700 hover:bg-slate-100 transition">
+            Cancel
+        </a>
+
+        <button
+            type="submit"
+            class="px-8 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-2xl transition">
+            Save Tasks
+        </button>
+
+    </div>
+</form>
     </div>
 </div>
 
