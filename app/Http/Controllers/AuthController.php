@@ -23,21 +23,6 @@ class AuthController extends Controller
         return view('register.index');
     }
 
-    public function login(Request $request)
-    {
-
-        $user = User::where('email', $request->input('email'))->first();
-        
-        $password = User::where('password', $request->input('password'))->first();
-
-        if ($user && $password) {
-            return redirect()->route('dashboard');
-        }
-        else {
-            return redirect()->back()->withErrors(['msg' => 'The password and email not mathch']);
-        }
-    }
-
     
     public function register(Request $request)
     {

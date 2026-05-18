@@ -32,7 +32,7 @@
 
             <!-- Form Content -->
             <div class="p-8">
-                <form id="authForm" class="space-y-6" method="post" action="{{route('login')}}">
+                <form id="authForm" class="space-y-6">
                     @csrf
 
                     <!-- Email -->
