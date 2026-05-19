@@ -7,6 +7,21 @@ use App\Models\Task;
 
 class TaskController extends Controller
 {
+    public function index(Request $request)
+{
+    $query = Task::query();
+
+    if ($request->status) {
+        $query->where('status', $request->status);
+    }
+
+    $tasks = $query->paginate(7);
+
+    return view('tasks.index', compact('tasks'));
+}
+    
+
+    public function store(Request $request)
     public function edit($id)
     {
         $task = Task::findOrFail($id);        
@@ -29,13 +44,24 @@ class TaskController extends Controller
     }
     public function index()
     {
-        $tasks = Task::latest()->get();
+        $task_name = $request->input('task_name');
+        $priority = $request->input('priority');
+        $status = $request->input('status');
+        $due_date = $request->input('due_date');
 
-        return view('tasks.index', compact('tasks'));
+        Task::create([
+            'task_name'   => $request->title,
+            'priority' => $priority,
+            'status' => $status,
+            'due_date' => $due_date,
+        ]);
+
+        return redirect()->route('tasks')->with('success', 'Task created successfully!');
     }
 
     public function create()
     {
+
         return view('tasks.create');
     }
 
@@ -48,12 +74,33 @@ public function store(Request $request)
         'status'      => 'nullable|string',
     ]);
 
-    $validated['status'] = $validated['status'] ?? 'Pending';
+        return view('tasks.edit', compact('task'));
+    }
+    public function update(Request $request, $id)
+    {
+        $task = Task::findOrFail($id);
 
-    Task::create($validated);
+        $task->update([
+            'task_name' => $request->task_name,
+            'priority' => $request->priority,
+            'status' => $request->status,
+            'due_date' => $request->due_date,
+        ]);
 
-    return redirect()->route('tasks.index')
-                     ->with('success', 'Task created successfully!');
-}
+        $task->save();
 
+        return redirect()
+            ->route('tasks')
+            ->with('success', 'Task updated successfully!');
+    }
+
+
+
+    public function destroy($id)
+    {
+        $task = Task::findOrFail($id);
+        $task->delete();
+
+        return redirect()->route('tasks')->with('success', 'Task deleted successfully!');
+    }
 }
