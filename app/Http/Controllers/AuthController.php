@@ -4,59 +4,41 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\RedirectController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\View\View;
+use PhpParser\Builder\Function_;
+use PhpParser\Node\Expr\FuncCall;
 
 class AuthController extends Controller
 {
-    public function showLogin()
+    public function showlogin()
     {
-        return view('auth.index');
+        return view('login.index');
     }
 
-    public function login(Request $request)
+    public function showRegister()
     {
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-
-            $user = Auth::user();
-
-            if ($user->role === 'admin') {
-                return redirect('/admin/dashboard');
-            }
-
-            if ($user->role === 'tenant') {
-                return redirect('/tenant/dashboard');
-            }
-
-            Auth::logout();
-            return redirect('/login');
-        }
-
-        return back()->with('error', 'Invalid credentials');
+        return view('register.index');
     }
 
-    public function logout(Request $request)
+    
+    public function register(Request $request)
     {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect('/login');
+       $full_name = $request->input('full_name');
+       $email = $request->input('email');
+       $password = $request->input('password');
+
+       User::create([
+        'full_name' => $full_name,
+        'email' => $email,
+        'password' => $password,
+       ]);
+
+       return redirect()->route('dashboard');
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'email'    => 'required|email|unique:users',
-            'password' => 'required|min:6',
-        ]);
+    
 
-        User::create([
-            'email'    => $request->email,
-            'password' => Hash::make($request->password), // ← always hash passwords
-        ]);
-
-        return redirect()->route('login');
-    }
 }

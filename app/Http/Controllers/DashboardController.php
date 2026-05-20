@@ -2,34 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Task;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $menuItems = [
-            [
-                'label' => 'Dashboard',
-                'icon' => 'bi bi-house',
-                'route' => 'dashboard',
-            ],
-            [
-                'label' => 'Users',
-                'icon' => 'bi bi-people',
-                'route' => 'users.index',
-                'children' => [
-                    ['label' => 'All Users', 'route' => 'users.index'],
-                    ['label' => 'Add User', 'route' => 'users.create'],
-                ],
-            ],
-            [
-                'label' => 'Reports',
-                'icon' => 'bi bi-graph-up',
-                'route' => 'reports.index',
-            ],
-        ];
+        $totalTasks = Task::count();
+        
+        $completedTasks   = Task::where('status', 'completed')->count();
+        $pendingTasks     = Task::where('status', 'pending')->count();
+        $inProgressTasks  = Task::where('status', 'in_progress')->count();
+        $newTasksThisWeek = Task::where('created_at', '>=', now()->startOfWeek())->count();
 
-        return view('dashboard', compact('menuItems'));
+        $completionRate = $totalTasks > 0 ? round(($completedTasks / $totalTasks) * 100) : 0;
+
+        $recentTasks = Task::latest()->take(6)->get();
+            
+
+        return view('dashboard', compact('totalTasks', 'completedTasks', 'pendingTasks', 'inProgressTasks', 'newTasksThisWeek','completionRate', 'recentTasks' ));
     }
-}
+
+}   

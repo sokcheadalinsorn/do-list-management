@@ -22,6 +22,27 @@ class TaskController extends Controller
     
 
     public function store(Request $request)
+    public function edit($id)
+    {
+        $task = Task::findOrFail($id);        
+        return view('tasks.edit', compact('task'));
+    }
+
+    public function destroy($id)
+{
+    $task = Task::findOrFail($id);
+    $task->delete();
+    return redirect()->back()->with('success', 'Task deleted successfully!');
+}
+
+    public function update(Request $request, $id)
+    {
+        $task = Task::findOrFail($id);
+        $task->update([ 'title' => $request->title, 'description' => $request->description, 'status' => $request->status, 'priority' => $request->priority, 'due_date' => $request->due_date,
+        ]);
+        return redirect('/dashboard');
+    }
+    public function index()
     {
         $task_name = $request->input('task_name');
         $priority = $request->input('priority');
@@ -44,9 +65,14 @@ class TaskController extends Controller
         return view('tasks.create');
     }
 
-    public function edit($id)
-    {
-        $task = Task::findOrFail($id);
+
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'title'       => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'status'      => 'nullable|string',
+    ]);
 
         return view('tasks.edit', compact('task'));
     }
