@@ -36,23 +36,23 @@
 
                 <form action="{{ route('tasks') }}" method="GET" class="flex items-center gap-4 mt-6">
 
-    <select name="status" class="border rounded-lg px-4 py-2" onchange="this.form.submit()">
-        <option value="">All Status</option>
+                    <select name="status" class="border rounded-lg px-4 py-2" onchange="this.form.submit()">
+                        <option value="">All Status</option>
 
-        <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>
-            Pending
-        </option>
+                        <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>
+                            Pending
+                        </option>
 
-        <option value="in_progress" {{ request('status') == 'in_progress' ? 'selected' : '' }}>
-            In Progress
-        </option>
+                        <option value="in_progress" {{ request('status') == 'in_progress' ? 'selected' : '' }}>
+                            In Progress
+                        </option>
 
-        <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>
-            Completed
-        </option>
-    </select>
+                        <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>
+                            Completed
+                        </option>
+                    </select>
 
-</form>
+                </form>
 
 
 
@@ -91,6 +91,8 @@
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide {{ $pStyle }}">
                                 {{ $task->priority }}
                             </span>
+
+
                         </td>
 
                         <td class="py-3.5 px-5 text-sm text-slate-500 font-mono tabular-nums ">

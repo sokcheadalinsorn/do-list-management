@@ -39,12 +39,6 @@ Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.crea
 
 
 
-Route::get('/tests', [TestController::class, 'index'])->name('tests');
-Route::post('/tests', [TestController::class, 'store'])->name('tests.store');
-Route::resource('tests', TestController::class);
-Route::get('/tests/{id}/edit',  [TestController::class, 'edit'])->name('tests.edit');
-Route::resource('test', TestController::class)->only(['index', 'show']);
-Route::put('/tests/{id}', [TestController::class, 'update'])->name('tests.update');
 
 Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
 
