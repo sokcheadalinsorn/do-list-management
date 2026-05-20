@@ -8,6 +8,21 @@ use App\Models\Task;
 
 class TaskController extends Controller
 {
+    public function index(Request $request)
+{
+    $query = Task::query();
+
+    if ($request->status) {
+        $query->where('status', $request->status);
+    }
+
+    $tasks = $query->paginate(7);
+
+    return view('tasks.index', compact('tasks'));
+}
+    
+
+    public function store(Request $request)
     public function edit($id)
     {
         $task = Task::findOrFail($id);        
@@ -32,11 +47,19 @@ class TaskController extends Controller
     {
          $tasks = Task::latest()->paginate(10);
 
-        return view('tasks.index', compact('tasks'));
+        Task::create([
+            'task_name'   => $request->title,
+            'priority' => $priority,
+            'status' => $status,
+            'due_date' => $due_date,
+        ]);
+
+        return redirect()->route('tasks')->with('success', 'Task created successfully!');
     }
 
     public function create()
     {
+
         return view('tasks.create');
     }
 
@@ -59,4 +82,12 @@ class TaskController extends Controller
         return redirect()->route('tasks')->with('success', 'Task created successfully!');
     }
 
+
+    public function destroy($id)
+    {
+        $task = Task::findOrFail($id);
+        $task->delete();
+
+        return redirect()->route('tasks')->with('success', 'Task deleted successfully!');
+    }
 }

@@ -7,6 +7,8 @@ use App\Http\Controllers\CompletedController;
 use App\Http\Controllers\SettingController;
 use Hamcrest\Core\Set;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\Util\Test;
+use App\Http\Controllers\TestController;
 
 Route::get('/', function () {
     return view('dashboard');
