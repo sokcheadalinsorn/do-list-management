@@ -15,14 +15,13 @@
 
             <!-- Tab Headers -->
             <div class="flex p-2 justify-items-center items-center">
-                <a href="{{route('login')}}">
+                <a href="{{route('showLogin')}}">
                     <button onclick="" type="button"
                         class="flex-1 px-18 py-5 justify-items-center items-center text-center text-xl font-bold rounded-xl transition-all duration-300 bg-blue-600 text-white shadow-lg">
                         Login
                     </button>
                 </a>
-
-                <a href="{{route('register')}}">
+                <a href="{{ route('showRegister') }}">
                     <button onclick="" type="button"
                         class="flex-1 px-18 py-5 justify-items-center items-center text-center text-xl font-bold rounded-xl transition-all duration-300 text-gray-800">
                         Register
@@ -32,7 +31,7 @@
 
             <!-- Form Content -->
             <div class="p-8">
-                <form id="authForm" class="space-y-6">
+                <form id="authForm" class="space-y-6" action="{{route('login')}}" method="post">
                     @csrf
 
                     <!-- Email -->
