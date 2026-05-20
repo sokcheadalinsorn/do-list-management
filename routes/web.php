@@ -14,43 +14,18 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+// login logout and register
+Route::get('/login', [AuthController::class, 'showLogin'])->name('showLogin');
+Route::get('/register', [AuthController::class, 'showRegister'])->name('showRegister');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-Route::get('/register', [AuthController::class, 'store'])->name('regiter.store');
-
-// No middleware - open access for now
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/completed', [CompletedController::class, 'index'])->name('completed');
-Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
-
 Route::get('/tasks', [TaskController::class, 'index'])->name('tasks');
+Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
 Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
-Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
-
-Route::get('/tasks/{id}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
-Route::put('/tasks/{id}', [TaskController::class, 'update'])->name('tasks.update');
-Route::delete('/tasks/{id}', [TaskController::class, 'destroy'])->name('tasks.destroy');
-
-Route::get('/tasks', [TaskController::class, 'showAll'])->name('tasks.showAll');
-Route::resource('tasks', TaskController::class);
-Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
-
-
-
-Route::get('/tests', [TestController::class, 'index'])->name('tests');
-Route::post('/tests', [TestController::class, 'store'])->name('tests.store');
-Route::resource('tests', TestController::class);
-Route::get('/tests/{id}/edit',  [TestController::class, 'edit'])->name('tests.edit');
-Route::resource('test', TestController::class)->only(['index', 'show']);
-Route::put('/tests/{id}', [TestController::class, 'update'])->name('tests.update');
-
-Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
-
-Route::resource('tasks', TaskController::class);
-Route::get('/tasks', [TaskController::class, 'index'])->name('tasks');
-Route::get('/tasks', [TaskController::class, 'index']);
 Route::get('/completed', [CompletedController::class, 'index'])->name('completed');
 
 

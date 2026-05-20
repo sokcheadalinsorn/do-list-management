@@ -1,26 +1,12 @@
 @extends('layouts.app')
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My task</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-</head>
-
-<body>
-
-</body>
-
-</html>
 <div class="min-h-screen bg-gray-50 p-6 ml-64 font-sans">
 
     <div class="flex ">
-        <h1 class="text-3xl font-bold text-gray-700">My Task</h1>
+        <h1 class="text-3xl font-bold text-gray-700 no-underline" style="text-decoration: none !important;">My Task</h1>
         <a href="{{ route('tasks.create') }}" class="ml-auto px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">Add Task</a>
     </div>
     <div>
@@ -76,7 +62,7 @@
 
 
                         <td class="py-3.5 px-5 text-lg font-semibold text-slate-800 tracking-tight tabular-nums ">
-                            {{ $task->task_name }}
+                            {{ $task->title }}
                         </td>
 
                         <td class="py-3.5 px-5 text-sm text-slate-500 font-mono tabular-nums ">

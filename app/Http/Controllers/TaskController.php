@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Task;
 
 class TaskController extends Controller
@@ -44,10 +45,7 @@ class TaskController extends Controller
     }
     public function index()
     {
-        $task_name = $request->input('task_name');
-        $priority = $request->input('priority');
-        $status = $request->input('status');
-        $due_date = $request->input('due_date');
+         $tasks = Task::latest()->paginate(10);
 
         Task::create([
             'task_name'   => $request->title,
@@ -66,34 +64,23 @@ class TaskController extends Controller
     }
 
 
-public function store(Request $request)
-{
-    $validated = $request->validate([
-        'title'       => 'required|string|max:255',
-        'description' => 'nullable|string',
-        'status'      => 'nullable|string',
-    ]);
-
-        return view('tasks.edit', compact('task'));
-    }
-    public function update(Request $request, $id)
+    public function store(Request $request)
     {
-        $task = Task::findOrFail($id);
-
-        $task->update([
-            'task_name' => $request->task_name,
-            'priority' => $request->priority,
-            'status' => $request->status,
-            'due_date' => $request->due_date,
+        $validated = $request->validate([
+            'title'       => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'status'      => 'nullable|string',
+            'due_date'    => 'required|date',
+            'priority'    => 'required|string', 
         ]);
 
-        $task->save();
+        $validated['status']  = $validated['status'] ?? 'Pending';
+        $validated['user_id'] = auth()->id();     
 
-        return redirect()
-            ->route('tasks')
-            ->with('success', 'Task updated successfully!');
+        Task::create($validated);
+
+        return redirect()->route('tasks')->with('success', 'Task created successfully!');
     }
-
 
 
     public function destroy($id)

@@ -18,110 +18,99 @@
         <p class="text-sm text-slate-400 mt-1 mb-6">Fill in the details below to add a task to your list</p>
 
         <form action="{{ route('tasks.store') }}" method="POST" class="space-y-6">
-    @csrf
+            @csrf
 
-    {{-- Task Title --}}
-    <div>
-        <label for="title" class="block text-sm font-semibold text-slate-700 mb-2">
-            Task Title
-        </label>
+            {{-- Task Title --}}
+            <div>
+                <label for="title" class="block text-sm font-semibold text-slate-700 mb-2">
+                    Task Title
+                </label>
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    value="{{ old('title') }}"
+                    required
+                    placeholder="e.g Design New Feature."
+                    class="w-full px-4 py-3 border border-slate-200 rounded-2xl bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition">
+            </div>
 
-        <input
-            type="text"
-            id="title"
-            name="title"
-            value="{{ old('title') }}"
-            required
-            placeholder="e.g Design New Feature."
-            class="w-full px-4 py-3 border border-slate-200 rounded-2xl bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition">
-    </div>
+            {{-- Description --}}
+            <div>
+                <label for="description" class="block text-sm font-semibold text-slate-700 mb-2">
+                    Description
+                </label>
+                <textarea
+                    id="description"
+                    name="description"
+                    rows="5"
+                    required
+                    placeholder="Describe the task in detail..."
+                    class="w-full px-4 py-3 border border-slate-200 rounded-2xl bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none transition">{{ old('description') }}</textarea>
+            </div>
 
-    {{-- Description --}}
-    <div>
-        <label for="description" class="block text-sm font-semibold text-slate-700 mb-2">
-            Description
-        </label>
+            {{-- Status --}}
+            <div>
+                <label for="status" class="block text-sm font-semibold text-slate-700 mb-2">
+                    Status
+                </label>
+                <select
+                    id="status"
+                    name="status"
+                    required
+                    class="w-full px-4 py-3 border border-slate-200 rounded-2xl bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition">
+                    <option value="pending">Pending</option>
+                    <option value="in_progress">In Progress</option>
+                </select>
+            </div>
 
-        <textarea
-            id="description"
-            name="description"
-            rows="5"
-            required
-            placeholder="Describe the task in detail..."
-            class="w-full px-4 py-3 border border-slate-200 rounded-2xl bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none transition">{{ old('description') }}</textarea>
-    </div>
+            {{-- Due Date & Priority --}}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
 
-    {{-- Status --}}
-    <div>
-        <label for="status" class="block text-sm font-semibold text-slate-700 mb-2">
-            Status
-        </label>
+                {{-- Due Date --}}
+                <div>
+                    <label for="due_date" class="block text-sm font-semibold text-slate-700 mb-2">
+                        Due date
+                    </label>
+                    <input
+                        type="date"
+                        id="due_date"
+                        name="due_date"
+                        value="{{ old('due_date') }}"
+                        required
+                        class="w-full px-4 py-3 border border-slate-200 rounded-2xl bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition">
+                </div>
 
-        <select
-            id="status"
-            name="status"
-            required
-            class="w-full px-4 py-3 border border-slate-200 rounded-2xl bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition">
+                {{-- Priority --}}
+                <div>
+                    <label for="priority" class="block text-sm font-semibold text-slate-700 mb-2">
+                        Priority
+                    </label>
+                    <select
+                        id="priority"
+                        name="priority"
+                        required
+                        class="w-full px-4 py-3 border border-slate-200 rounded-2xl bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition">
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+            </div>
 
-            <option value="Pending">Pending</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Completed">Completed</option>
-        </select>
-    </div>
-
-    {{-- Due Date & Priority --}}
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-
-        {{-- Due Date --}}
-        <div>
-            <label for="due_date" class="block text-sm font-semibold text-slate-700 mb-2">
-                Due date
-            </label>
-
-            <input
-                type="date"
-                id="due_date"
-                name="due_date"
-                value="{{ old('due_date') }}"
-                required
-                class="w-full px-4 py-3 border border-slate-200 rounded-2xl bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition">
-        </div>
-
-        {{-- Priority --}}
-        <div>
-            <label for="priority" class="block text-sm font-semibold text-slate-700 mb-2">
-                Priority
-            </label>
-
-            <select
-                id="priority"
-                name="priority"
-                required
-                class="w-full px-4 py-3 border border-slate-200 rounded-2xl bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 transition">
-
-                <option value="High">High</option>
-                <option value="Medium">Medium</option>
-                <option value="Low">Low</option>
-            </select>
-        </div>
-    </div>
-
-    {{-- Buttons --}}
-    <div class="flex items-center justify-end gap-4 pt-4">
-
-        <a href="{{ route('tasks') }}"
-            class="px-8 py-3 border border-slate-200 rounded-2xl text-slate-700 hover:bg-slate-100 transition">
-            Cancel
-        </a>
-
-        <button
-            type="submit"
-            class="px-8 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-2xl transition">
-            Save Tasks
-        </button>
-
-    </div>
-</form>
+            {{-- Buttons --}}
+            <div class="flex items-center justify-end gap-4 pt-4">
+                <a href="{{ route('tasks') }}"
+                    class="px-8 py-3 border border-slate-200 rounded-2xl text-slate-700 hover:bg-slate-100 transition">
+                    Cancel
+                </a>
+                <button
+                    type="submit"
+                    class="px-8 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-2xl transition">
+                    Save Tasks
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 

@@ -10,16 +10,20 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-{
-    Schema::create('tasks', function (Blueprint $table) {
-        $table->id();
-        $table->string('task_name')->nullable();
-        $table->string('priority');
-        $table->string('status');
-        $table->date('due_date')->nullable();
-        $table->timestamps();
-    });
-}
+    {
+        Schema::create('tasks', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('title');
+            $table->string('description');
+            $table->enum('priority', ['low', 'medium', 'high']);
+            $table->enum('status', ['pending', 'in_progress', 'completed']);
+            $table->date('due_date');
+            $table->timestamps();
+        });
+    }
+
 
     /**
      * Reverse the migrations.
