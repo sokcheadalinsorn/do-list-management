@@ -13,17 +13,13 @@
  
     {{-- Search & Filter Bar --}}
     <div class="flex gap-3 w-full mb-3">
-        <div class="flex p-items-center gap-2 bg-white border border-gray-200 rounded-lg px-4 py-3 w-full max-w-[1100]">
+        <div class="flex items-center gap-2 bg-white border border-gray-200 rounded-lg px-4 py-3 w-full">
             <i class="fa-solid fa-magnifying-glass text-gray-400 text-sm"></i>
-            <input
-                type="text"
-                id="search-input"
-                placeholder="Search Tasks..."
-                class="w-full text-sm text-gray-700 outline-none bg-transparent"
-            >
+            <input type="text" id="search-input" placeholder="Search Tasks..."
+                class="w-full text-sm text-gray-700 outline-none bg-transparent">
         </div>
         <select id="status-filter"
-            class="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm text-gray-700 outline-none min-w-[500]">
+            class="bg-white border border-gray-200 rounded-lg px-4 py-2 text-sm text-gray-700 outline-none">
             <option value="">All Status</option>
             <option value="pending">Pending</option>
             <option value="in_progress">In Progress</option>
@@ -55,12 +51,27 @@
         {{-- Rows --}}
         <div id="task-list">
             @forelse($tasks as $task)
-            <div class="task-row flex items-center px-5 py-4 border-b border-gray-50 hover:bg-gray-50 transition-colors"
+            <div class="task-row relative flex items-center px-5 py-4 border-b border-gray-50 hover:bg-gray-50 transition-colors"
                 data-name="{{ strtolower($task->title) }}"
                 data-status="{{ $task->status }}">
+
+                {{-- Strikethrough line across full row --}}
+                <div id="strike-{{ $task->id }}"
+                    class="absolute left-5 right-20 h-px bg-gray-400 top-1/2 pointer-events-none {{ $task->status === 'completed' ? '' : 'hidden' }}">
+                </div>
  
-                {{-- Task Name --}}
-                <div class="w-[30%] text-sm text-gray-800 font-medium pr-4">{{ $task->title }}</div>
+                {{-- Task Name with Checkbox --}}
+                <div class="w-[30%] text-sm text-gray-800 font-medium pr-4 flex items-center gap-3">
+                    <input
+                        type="checkbox"
+                        {{ $task->status === 'completed' ? 'checked' : '' }}
+                        onchange="markComplete({{ $task->id }}, this)"
+                        class="w-4 h-4 rounded accent-indigo-600 cursor-pointer shrink-0">
+                    <span id="task-name-{{ $task->id }}"
+                        class="{{ $task->status === 'completed' ? 'text-gray-400' : '' }}">
+                        {{ $task->title }}
+                    </span>
+                </div>
  
                 {{-- Priority --}}
                 <div class="w-[15%]">
@@ -74,7 +85,7 @@
                 </div>
  
                 {{-- Status --}}
-                <div class="w-[15%]">
+                <div class="w-[15%]" id="task-status-{{ $task->id }}">
                     @if($task->status === 'in_progress')
                         <span class="inline-block px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-600">In Progress</span>
                     @elseif($task->status === 'completed')
@@ -94,16 +105,13 @@
                     <a href="{{ route('tasks.edit', $task->id) }}" class="hover:text-blue-500 transition-colors">
                         <i class="fa-solid fa-pen text-sm"></i>
                     </a>
-                    <button class="hover:text-gray-600 transition-colors">
-                        <i class="fa-solid fa-eye-slash text-sm"></i>
-                    </button>
                     <form action="{{ route('tasks.destroy', $task->id) }}" method="POST"
                         onsubmit="return confirm('Delete this task?')">
                         @csrf
                         @method('DELETE')
-                        <!-- <button type="submit" class="hover:text-red-500 transition-colors">
+                        <button type="submit" class="hover:text-red-500 transition-colors">
                             <i class="fa-solid fa-trash text-sm"></i>
-                        </button> -->
+                        </button>
                     </form>
                 </div>
             </div>
@@ -137,6 +145,33 @@
     </div>
 </div>
  
+<script>
+function markComplete(taskId, checkbox) {
+    const taskName = document.getElementById('task-name-' + taskId);
+    const taskStatus = document.getElementById('task-status-' + taskId);
+    const strike = document.getElementById('strike-' + taskId);
+
+    if (checkbox.checked) {
+        strike.classList.remove('hidden');
+        taskName.classList.add('text-gray-400');
+        taskStatus.innerHTML = '<span class="inline-block px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-600">Completed</span>';
+    } else {
+        strike.classList.add('hidden');
+        taskName.classList.remove('text-gray-400');
+        taskStatus.innerHTML = '<span class="inline-block px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600">Pending</span>';
+    }
+
+    fetch('/tasks/' + taskId + '/complete', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: JSON.stringify({ completed: checkbox.checked })
+    });
+}
+</script>
+
 {{-- Live Search & Filter Script --}}
 <script>
     const searchInput = document.getElementById('search-input');
@@ -163,4 +198,3 @@
 </script>
  
 @endsection
- 

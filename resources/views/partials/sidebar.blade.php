@@ -81,26 +81,29 @@
         <div class="border-b border-gray-200 mb-2"></div>
 
         <!-- Profile + Logout -->
-        <div class="px-2 py-2">
-            <div class="flex items-center gap-3 mb-2">
-                <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center shrink-0">
-                    <span class="text-sm font-semibold text-gray-600">
-                        {{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}{{ strtoupper(substr(explode(' ', auth()->user()->name ?? 'A U')[1] ?? '', 0, 1)) }}
-                    </span>
-                </div>
-                <div class="overflow-hidden">
-                    <p class="text-sm font-semibold text-gray-800 truncate">{{ auth()->user()->name ?? 'Admin User' }}</p>
-                    <p class="text-xs text-gray-400 truncate">{{ auth()->user()->email ?? 'admin@example.com' }}</p>
-                </div>
-
-            </div>
-            <form action="{{route('logout')}}" method="POST">
-                @csrf
-                <button type="submit">Logout</button>
-            </form>
-
+    <div class="px-2 py-2">
+        <div class="flex items-center gap-3 mb-2">
+        <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center shrink-0">
+            <span class="text-sm font-semibold text-gray-600">
+                {{ strtoupper(substr(auth()->user()->full_name ?? 'A', 0, 1)) }}{{ strtoupper(substr(explode(' ', auth()->user()->full_name ?? 'A U')[1] ?? '', 0, 1)) }}
+            </span>
         </div>
-
+        <div class="overflow-hidden">
+            <p class="text-sm font-semibold text-gray-800 truncate">{{ auth()->user()->full_name ?? 'Admin User' }}</p>
+            <p class="text-xs text-gray-400 truncate">{{ auth()->user()->email ?? 'admin@example.com' }}</p>
+        </div>
+    </div>
+    <form action="{{ route('logout') }}" method="POST">
+    @csrf
+    <button type="submit"
+        class="flex items-center gap-1 w-full px-2 py-2 mt-1 text-sm text-red-500 hover:bg-red-50 rounded-lg transition-colors duration-150">
+        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
+        </svg>
+        Logout
+    </button>
+</form>
+</div>
     </div>
 
 </body>

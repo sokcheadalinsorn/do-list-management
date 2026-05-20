@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Task;
 
 class TaskController extends Controller
@@ -29,7 +30,7 @@ class TaskController extends Controller
     }
     public function index()
     {
-        $tasks = Task::latest()->get();
+         $tasks = Task::latest()->paginate(10);
 
         return view('tasks.index', compact('tasks'));
     }
@@ -40,20 +41,22 @@ class TaskController extends Controller
     }
 
 
-public function store(Request $request)
-{
-    $validated = $request->validate([
-        'title'       => 'required|string|max:255',
-        'description' => 'nullable|string',
-        'status'      => 'nullable|string',
-    ]);
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'title'       => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'status'      => 'nullable|string',
+            'due_date'    => 'required|date',
+            'priority'    => 'required|string', 
+        ]);
 
-    $validated['status'] = $validated['status'] ?? 'Pending';
+        $validated['status']  = $validated['status'] ?? 'Pending';
+        $validated['user_id'] = auth()->id();     
 
-    Task::create($validated);
+        Task::create($validated);
 
-    return redirect()->route('tasks.index')
-                     ->with('success', 'Task created successfully!');
-}
+        return redirect()->route('tasks')->with('success', 'Task created successfully!');
+    }
 
 }

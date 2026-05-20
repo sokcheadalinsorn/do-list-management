@@ -31,20 +31,24 @@ class AuthController extends Controller
     }
 
     public function register(Request $request)
-    {
+    {   
         $full_name = $request->input('full_name');
         $email = $request->input('email');
         $password = $request->input('password');
+        
+        // $emailExist = User::where('email', $email);
 
-        User::create([
-            'full_name' => $full_name,
-            'email' => $email,
-            'password' => $password,
-        ]);
-
-        return redirect()->route('dashboard');
+        // if ($emailExist) {
+        //     return back()->with('error', 'Email aready exist');
+        // } else {
+            User::create([
+                'full_name' => $full_name,
+                'email' => $email,
+                'password' => $password,
+            ]);
+            return redirect()->route('dashboard');
+        // }
     }
-
 
     public function login(Request $request)
     {
@@ -58,23 +62,5 @@ class AuthController extends Controller
         } else {
             return redirect()->back()->withErrors(['msg' => 'The password and email not match']);
         }
-    }
-
-
-    public function register(Request $request)
-    {
-        $emailExists = User::where('email', $request->email)->exists();
-
-        if ($emailExists) {
-            return back()->with('error', 'Email already exists');
-        }
-
-        User::create([
-            'full_name' => $request->full_name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
-
-        return redirect('/login');
     }
 }

@@ -55,7 +55,7 @@
                     </button>
                 </form>
                 @if ($errors->any())
-                    <div class="alert alert-danger">
+                    <div class="flex justify-center text-center font-bold space-x-3 text-red-400 text-sm text-underline">
                         <ul>
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>

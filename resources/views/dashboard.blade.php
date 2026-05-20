@@ -62,7 +62,6 @@
 
     <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-8">
 
-        {{-- Header --}}
         <div class="flex items-center justify-between mb-4">
             <h5 class="text-base font-semibold text-gray-900">Recent Tasks</h5>
             <div class="flex items-center gap-2">
