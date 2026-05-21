@@ -10,10 +10,7 @@ class CompletedController extends Controller
 {
    public function index(Request $request)
 {
-    $tasks = Task::where('status', 'completed')
-        ->orderBy('created_at', 'desc')
-        ->paginate(10);
-
+    $tasks = Task::where('status', 'completed') ->orderBy('created_at', 'desc') ->paginate(10);
     return view('completed.index', compact('tasks'));
 }
 
