@@ -103,6 +103,8 @@
             </tbody>
         </table>
 
+
+
         {{-- Footer --}}
         <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
             <p class="text-sm text-gray-400">Showing {{ $recentTasks->count() }} of {{ $totalTasks }} tasks</p>
@@ -111,6 +113,8 @@
                 <button class="text-sm text-gray-400 hover:text-gray-600 transition">Next</button>
             </div>
         </div>
+
+        
 
     </div>
 

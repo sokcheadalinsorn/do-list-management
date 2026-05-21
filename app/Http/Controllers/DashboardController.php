@@ -17,7 +17,7 @@ class DashboardController extends Controller
 
         $completionRate = $totalTasks > 0 ? round(($completedTasks / $totalTasks) * 100) : 0;
 
-        $recentTasks = Task::latest()->take(6)->get();
+        $recentTasks = Task::latest()->take(5)->get();
             
 
         return view('dashboard', compact('totalTasks', 'completedTasks', 'pendingTasks', 'inProgressTasks', 'newTasksThisWeek','completionRate', 'recentTasks' ));

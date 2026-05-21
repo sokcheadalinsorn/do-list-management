@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: do-list-management
+    env: php
+    buildCommand: composer install --no-dev && php artisan migrate --force
+    startCommand: php artisan serve --host=0.0.0.0 --port=10000
