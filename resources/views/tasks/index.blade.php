@@ -34,7 +34,7 @@
             </div>
             <div class="flex items-center gap-4 mt-6">
 
-                <form action="{{ route('tasks') }}" method="GET" class="flex items-center gap-4 mt-6">
+                <form action="{{ route('tasks.create') }}" method="GET" class="flex items-center gap-4 mt-6">
 
                     <select name="status" class="border rounded-lg px-4 py-2" onchange="this.form.submit()">
                         <option value="">All Status</option>

@@ -23,7 +23,7 @@ Route::get('/register', [AuthController::class, 'store'])->name('regiter.store')
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/completed', [CompletedController::class, 'index'])->name('completed');
-Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
+
 
 Route::get('/tasks', [TaskController::class, 'index'])->name('tasks');
 Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
